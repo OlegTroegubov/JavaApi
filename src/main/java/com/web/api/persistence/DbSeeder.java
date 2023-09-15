@@ -10,10 +10,10 @@ import java.util.List;
 public class DbSeeder {
 
     public static List<Movie> getMovieList() throws ParseException {
-        Movie movie1 = new Movie(1, 1, "Godfather", "14.03.1972",9.2F,true, MovieGenre.Crime);
-        Movie movie2 = new Movie(2, 1,"Dracula","13.11.1992",7.4F,false,  MovieGenre.Horror);
-        Movie movie3 = new Movie(3, 2,"Lock, Stock and Two Smoking Barrels", "28.08.1998", 8.1F, false, MovieGenre.Crime);
-        Movie movie4 = new Movie(4, 2,"Snatch", "01.09.2001", 8.2F, false, MovieGenre.Crime);
+        Movie movie1 = new Movie(1, 1, "Godfather", "14.03.1972",9.2F,true, MovieGenre.CRIME);
+        Movie movie2 = new Movie(2, 1,"Dracula","13.11.1992",7.4F,false,  MovieGenre.HORROR);
+        Movie movie3 = new Movie(3, 2,"Lock, Stock and Two Smoking Barrels", "28.08.1998", 8.1F, false, MovieGenre.CRIME);
+        Movie movie4 = new Movie(4, 2,"Snatch", "01.09.2001", 8.2F, false, MovieGenre.CRIME);
         return List.of(movie1, movie2, movie3, movie4);
     }
 
