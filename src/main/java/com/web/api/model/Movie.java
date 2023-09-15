@@ -11,15 +11,3 @@ public record Movie(int id, int producerId, String title, Date releaseDate, floa
     }
 }
 
-public enum MovieGenre{
-    Action,
-    Animation,
-    Comedy,
-    Crime,
-    Drama,
-    Experimental,
-    Fantasy,
-    Historical,
-    Horror,
-    Romance
-}
