@@ -1,16 +1,12 @@
 package com.web.api.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class Producer {
-    public int id;
-    public String firstName;
-    public String lastName;
+public record Producer(int id, String firstName, String lastName, Date dateOfBirth, String email, boolean isBadGuy){
 
-    public Producer(int id, String firstName, String lastName){
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Producer(int id, String firstName, String lastName, String dateOfBirth, String email, boolean isBadGuy) throws ParseException {
+        this(id, firstName, lastName, new SimpleDateFormat("dd.MM.yyyy").parse(dateOfBirth), email, isBadGuy);
     }
 }
