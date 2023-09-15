@@ -1,6 +1,7 @@
 package com.web.api.controller;
 
 
+import com.web.api.model.Movie;
 import com.web.api.model.Producer;
 import com.web.api.persistence.DbSeeder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,16 @@ public class ProducerController {
     @GetMapping("/{producer_id}")
     public Producer getProducer(@PathVariable("producer_id") int producerId){
         return producerList.stream()
-                .filter(producer -> producer.id == producerId)
+                .filter(producer -> producer.id() == producerId)
                 .findAny()
                 .orElse(null);
+    }
+
+    @GetMapping("/{producer_id}/movies")
+    public List<Movie> getMoviesByProducerId(@PathVariable("producer_id") int producerId) throws ParseException {
+        List<Movie> movieList = DbSeeder.getMovieList();
+        return movieList.stream()
+                .filter(movie -> movie.producerId() == producerId)
+                .toList();
     }
 }

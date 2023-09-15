@@ -28,15 +28,8 @@ public class MovieController {
     @GetMapping("/{movie_id}")
     public Movie getMovie(@PathVariable("movie_id") int movieId){
         return movieList.stream()
-                .filter(movie -> movie.id == movieId)
+                .filter(movie -> movie.id() == movieId)
                 .findAny()
                 .orElse(null);
-    }
-
-    @GetMapping("MoviesByProducerId/{producer_id}")
-    public List<Movie> getMoviesByProducerId(@PathVariable("producer_id") int producerId){
-        return movieList.stream()
-                .filter(movie -> movie.producerId == producerId)
-                .toList();
     }
 }
