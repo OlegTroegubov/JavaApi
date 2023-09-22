@@ -4,10 +4,8 @@ package com.web.api.controller;
 import com.web.api.model.Movie;
 import com.web.api.model.Producer;
 import com.web.api.persistence.DbSeeder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -44,5 +42,50 @@ public class ProducerController {
                 .stream()
                 .filter(movie -> movie.producerId() == producerId)
                 .toList();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public Producer createProducer(@RequestBody Producer producer) {
+        producerList.add(producer);
+        return producer;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{producer_id}")
+    public void updateProducer(@RequestBody Producer producer, @PathVariable("producer_id") int producerId) {
+        var exsistingProducer = producerList
+                .stream()
+                .filter(x -> x.id() == producerId)
+                .findAny()
+                .orElse(null);
+
+        var producerIndex = producerList.indexOf(exsistingProducer);
+
+        if (exsistingProducer != null) {
+            exsistingProducer = new Producer(exsistingProducer.id(),
+                    producer.firstName(),
+                    producer.lastName(),
+                    producer.dateOfBirth(),
+                    producer.email(),
+                    producer.isBadGuy());
+        }
+
+        producerList.set(producerIndex, exsistingProducer);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{producer_id}")
+    public void deleteProducer(@PathVariable("producer_id") int producerId) {
+        var exsistingProducer = producerList
+                .stream()
+                .filter(x -> x.id() == producerId)
+                .findAny()
+                .orElse(null);
+
+        if (exsistingProducer != null) {
+            producerList.remove(exsistingProducer);
+        }
+
     }
 }
