@@ -2,10 +2,8 @@ package com.web.api.controller;
 
 import com.web.api.model.Movie;
 import com.web.api.persistence.DbSeeder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,5 +30,42 @@ public class MovieController {
                 .filter(movie -> movie.id() == movieId)
                 .findAny()
                 .orElse(null);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public Movie createMovie(@RequestBody Movie movie) {
+        movieList.add(movie);
+        return movie;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{movie_id}")
+    public void updateMove(@RequestBody Movie movie, @PathVariable("movie_id") int movieId) {
+        var exsistingMovie = movieList
+                .stream()
+                .filter(x -> x.id() == movieId)
+                .findAny()
+                .orElse(null);
+
+        var movieIndex = movieList.indexOf(exsistingMovie);
+
+        if (exsistingMovie != null) {
+            exsistingMovie = new Movie(exsistingMovie.id(), movie.producerId(), movie.title(), movie.releaseDate(), movie.movieRating(), movie.isTopRanked(), movie.genre());
+        }
+
+        movieList.set(movieIndex, exsistingMovie);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{movie_id}")
+    public void deleteMovie(@PathVariable("movie_id") int movieId) {
+        var exsistingMovie = movieList
+                .stream()
+                .filter(x -> x.id() == movieId)
+                .findAny()
+                .orElse(null);
+
+        movieList.remove(exsistingMovie);
     }
 }
