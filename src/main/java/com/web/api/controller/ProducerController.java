@@ -76,6 +76,5 @@ public class ProducerController {
         if (exsistingProducer != null) {
             producerList.remove(exsistingProducer);
         }
-
     }
 }
