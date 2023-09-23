@@ -3,11 +3,13 @@ package com.web.api.repositories;
 import com.web.api.model.Movie;
 import com.web.api.model.Producer;
 import com.web.api.persistence.DbSeeder;
+import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Repository
 public class ProducerRepository {
     List<Producer> producerList = new CopyOnWriteArrayList<>();
 
