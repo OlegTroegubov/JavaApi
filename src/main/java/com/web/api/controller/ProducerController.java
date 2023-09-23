@@ -60,18 +60,8 @@ public class ProducerController {
                 .findAny()
                 .orElse(null);
 
-        var producerIndex = producerList.indexOf(exsistingProducer);
-
-        if (exsistingProducer != null) {
-            exsistingProducer = new Producer(exsistingProducer.id(),
-                    producer.firstName(),
-                    producer.lastName(),
-                    producer.dateOfBirth(),
-                    producer.email(),
-                    producer.isBadGuy());
-        }
-
-        producerList.set(producerIndex, exsistingProducer);
+        producerList.remove(exsistingProducer);
+        producerList.add(producer);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

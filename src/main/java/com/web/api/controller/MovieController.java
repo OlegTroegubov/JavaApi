@@ -48,13 +48,8 @@ public class MovieController {
                 .findAny()
                 .orElse(null);
 
-        var movieIndex = movieList.indexOf(exsistingMovie);
-
-        if (exsistingMovie != null) {
-            exsistingMovie = new Movie(exsistingMovie.id(), movie.producerId(), movie.title(), movie.releaseDate(), movie.movieRating(), movie.isTopRanked(), movie.genre());
-        }
-
-        movieList.set(movieIndex, exsistingMovie);
+        movieList.remove(exsistingMovie);
+        movieList.add(movie);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
