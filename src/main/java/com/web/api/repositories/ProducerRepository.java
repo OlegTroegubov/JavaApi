@@ -11,18 +11,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 public class ProducerRepository {
-    List<Producer> producerList = new CopyOnWriteArrayList<>();
+    List<Producer> producers = new CopyOnWriteArrayList<>();
 
     public ProducerRepository() throws ParseException {
-        producerList.addAll(DbSeeder.getProducerList());
+        producers.addAll(DbSeeder.getProducerList());
     }
 
     public List<Producer> getProducers() {
-        return producerList;
+        return producers;
     }
 
     public Producer getProducer(int producerId) {
-        return producerList
+        return producers
                 .stream()
                 .filter(x -> x.id() == producerId)
                 .findAny()
@@ -37,18 +37,18 @@ public class ProducerRepository {
     }
 
     public Producer createProducer(Producer producer) {
-        producerList.add(producer);
+        producers.add(producer);
         return producer;
     }
 
     public void updateProducer(Producer producer, int producerId) {
         var existingProducer = getProducer(producerId);
-        producerList.remove(existingProducer);
-        producerList.add(producer);
+        producers.remove(existingProducer);
+        producers.add(producer);
     }
 
     public void deleteProducer(int producerId) {
         var existingProducer = getProducer(producerId);
-        producerList.remove(existingProducer);
+        producers.remove(existingProducer);
     }
 }
