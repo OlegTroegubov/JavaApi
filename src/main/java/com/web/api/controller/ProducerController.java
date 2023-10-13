@@ -16,7 +16,7 @@ public class ProducerController {
 
     private final ProducerRepository repository;
 
-    public ProducerController(ProducerRepository repository) throws ParseException {
+    public ProducerController(ProducerRepository repository) {
         this.repository = repository;
     }
 

@@ -5,7 +5,6 @@ import com.web.api.repositories.MovieRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -14,7 +13,7 @@ public class MovieController {
 
     private final MovieRepository repository;
 
-    public MovieController(MovieRepository repository) throws ParseException {
+    public MovieController(MovieRepository repository) {
         this.repository = repository;
     }
 
