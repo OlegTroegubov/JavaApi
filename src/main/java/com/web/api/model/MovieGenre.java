@@ -1,6 +1,6 @@
 package com.web.api.model;
 
-public enum MovieGenre{
+public enum MovieGenre {
     ACTION,
     ANIMATION,
     COMEDY,
