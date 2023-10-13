@@ -10,18 +10,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 public class MovieRepository {
-    List<Movie> movieList = new CopyOnWriteArrayList<>();
+    List<Movie> movies = new CopyOnWriteArrayList<>();
 
     public MovieRepository() throws ParseException {
-        movieList.addAll(DbSeeder.getMovieList());
+        movies.addAll(DbSeeder.getMovieList());
     }
 
     public List<Movie> getMovies() {
-        return movieList;
+        return movies;
     }
 
     public Movie getMovie(int movieId) {
-        return movieList
+        return movies
                 .stream()
                 .filter(x -> x.id() == movieId)
                 .findAny()
@@ -29,18 +29,18 @@ public class MovieRepository {
     }
 
     public Movie createMovie(Movie movie) {
-        movieList.add(movie);
+        movies.add(movie);
         return movie;
     }
 
     public void updateMovie(Movie movie, int movieId) {
         var existingMovie = getMovie(movieId);
-        movieList.remove(existingMovie);
-        movieList.add(movie);
+        movies.remove(existingMovie);
+        movies.add(movie);
     }
 
     public void deleteMovie(int movieId) {
         var existingMovie = getMovie(movieId);
-        movieList.remove(existingMovie);
+        movies.remove(existingMovie);
     }
 }
