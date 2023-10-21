@@ -18,7 +18,7 @@ public enum MovieGenre {
         return id;
     }
 
-    MovieGenre(int id) {
+    MovieGenre(Integer id) {
         this.id = id;
     }
 }
