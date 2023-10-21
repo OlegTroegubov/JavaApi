@@ -3,20 +3,21 @@ package com.web.api.controller;
 
 import com.web.api.model.Movie;
 import com.web.api.model.Producer;
-import com.web.api.repositories.ProducerRepository;
+import com.web.api.repositories.producer.ProducerRepositoryH2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/producers")
 public class ProducerController {
 
-    private final ProducerRepository repository;
+    private final ProducerRepositoryH2 repository;
 
-    public ProducerController(ProducerRepository repository) throws ParseException {
+    @Autowired
+    public ProducerController(ProducerRepositoryH2 repository) {
         this.repository = repository;
     }
 
@@ -31,14 +32,14 @@ public class ProducerController {
     }
 
     @GetMapping("/{producer_id}/movies")
-    public List<Movie> getMoviesByProducerId(@PathVariable("producer_id") int producerId) throws ParseException {
+    public List<Movie> getMoviesByProducerId(@PathVariable("producer_id") int producerId) {
         return repository.getMoviesByProducerId(producerId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Producer createProducer(@RequestBody Producer producer) {
-        return repository.createProducer(producer);
+    public void createProducer(@RequestBody Producer producer) {
+        repository.createProducer(producer);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

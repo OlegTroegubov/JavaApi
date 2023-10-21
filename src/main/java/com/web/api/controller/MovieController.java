@@ -1,11 +1,11 @@
 package com.web.api.controller;
 
 import com.web.api.model.Movie;
-import com.web.api.repositories.MovieRepository;
+import com.web.api.repositories.movie.MovieRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -14,7 +14,8 @@ public class MovieController {
 
     private final MovieRepository repository;
 
-    public MovieController(MovieRepository repository) throws ParseException {
+    @Autowired
+    public MovieController(MovieRepository repository) {
         this.repository = repository;
     }
 
@@ -30,8 +31,8 @@ public class MovieController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Movie createMovie(@RequestBody Movie movie) {
-        return repository.createMovie(movie);
+    public void createMovie(@RequestBody Movie movie) {
+        repository.createMovie(movie);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
