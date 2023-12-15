@@ -1,9 +1,11 @@
 package com.web.api.controller;
 
+import com.web.api.exception.NotFoundException;
 import com.web.api.model.Movie;
 import com.web.api.repositories.movie.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,5 +47,10 @@ public class MovieController {
     @DeleteMapping("/{movie_id}")
     public void deleteMovie(@PathVariable("movie_id") int movieId) {
         repository.deleteMovie(movieId);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handleException(NotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

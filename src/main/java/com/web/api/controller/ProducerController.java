@@ -1,11 +1,13 @@
 package com.web.api.controller;
 
 
+import com.web.api.exception.NotFoundException;
 import com.web.api.model.Movie;
 import com.web.api.model.Producer;
-import com.web.api.repositories.producer.ProducerRepositoryH2;
+import com.web.api.repositories.producer.ProducerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +16,10 @@ import java.util.List;
 @RequestMapping("api/producers")
 public class ProducerController {
 
-    private final ProducerRepositoryH2 repository;
+    private final ProducerRepository repository;
 
     @Autowired
-    public ProducerController(ProducerRepositoryH2 repository) {
+    public ProducerController(ProducerRepository repository) {
         this.repository = repository;
     }
 
@@ -52,5 +54,10 @@ public class ProducerController {
     @DeleteMapping("/{producer_id}")
     public void deleteProducer(@PathVariable("producer_id") int producerId) {
         repository.deleteProducer(producerId);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handleException(NotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
