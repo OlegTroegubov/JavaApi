@@ -1,6 +1,6 @@
 package com.web.api.model;
 
-public enum MovieGenre {
+public enum War {
     ACTION(1),
     ANIMATION(2),
     COMEDY(3),
@@ -18,7 +18,7 @@ public enum MovieGenre {
         return id;
     }
 
-    MovieGenre(Integer id) {
+    War(Integer id) {
         this.id = id;
     }
 }
